@@ -9,6 +9,7 @@ import { ListDivider } from '../../components/ListDivider'
 import { BackGround } from '../../components/Background'
 
 import { styles } from './styles'
+import { useNavigation } from '@react-navigation/core'
 
 export function Home() {
     const appointments = [
@@ -44,7 +45,7 @@ export function Home() {
                 id: '1',
                 name: 'Lendários',
                 icon: null,
-                owner: true,
+                owner: false,
             },
             category: '1',
             date: '22/06 às 20:40h',
@@ -57,7 +58,7 @@ export function Home() {
                 id: '1',
                 name: 'Lendários',
                 icon: null,
-                owner: true,
+                owner: false,
             },
             category: '1',
             date: '22/06 às 20:40h',
@@ -79,9 +80,17 @@ export function Home() {
         },
     ]
     const [category, setCategory] = useState('')
+
+    const navigation = useNavigation()
+
     function handleCategoruSelect(categoryId: string) {
         categoryId === category ? setCategory('') : setCategory(categoryId)
     }
+
+    function handleAppointmentDetails() {
+        navigation.navigate('AppointmentDetails')
+    }
+
     return (
         <BackGround>
             <View style={styles.header}>
@@ -99,7 +108,12 @@ export function Home() {
                 <FlatList
                     data={appointments}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <Appointment data={item} />}
+                    renderItem={({ item }) => (
+                        <Appointment
+                            data={item}
+                            onPress={handleAppointmentDetails}
+                        />
+                    )}
                     ItemSeparatorComponent={ListDivider}
                     showsVerticalScrollIndicator={false}
                     style={styles.matches}
