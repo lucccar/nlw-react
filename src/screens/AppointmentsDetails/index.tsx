@@ -25,7 +25,7 @@ export function AppointmentDetails() {
             id: '2',
             username: 'Vinícius',
             avatar_url: 'https://github.com/vinibs.png',
-            status: 'online',
+            status: 'offline',
         },
         {
             id: '3',
@@ -37,7 +37,7 @@ export function AppointmentDetails() {
             id: '4',
             username: 'Rodolfo',
             avatar_url: 'https://github.com/rodlottin.png',
-            status: 'online',
+            status: 'offline',
         },
         {
             id: '5',
@@ -49,7 +49,7 @@ export function AppointmentDetails() {
             id: '6',
             username: 'Vinícius',
             avatar_url: 'https://github.com/vinibs.png',
-            status: 'online',
+            status: 'offline',
         },
     ]
     return (
@@ -74,7 +74,10 @@ export function AppointmentDetails() {
                     </Text>
                 </View>
             </ImageBackground>
-            <ListHeader title={'Jogadores'} subtitle={'Total 3'} />
+            <ListHeader
+                title={'Jogadores'}
+                subtitle={`Total ${members.length}`}
+            />
             <FlatList
                 data={members}
                 keyExtractor={(item) => item.id}

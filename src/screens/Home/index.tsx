@@ -91,11 +91,15 @@ export function Home() {
         navigation.navigate('AppointmentDetails')
     }
 
+    function handleAppointmentCreate() {
+        navigation.navigate('AppointmentCreate')
+    }
+
     return (
         <BackGround>
             <View style={styles.header}>
                 <Profile />
-                <ButtonAdd />
+                <ButtonAdd onPress={handleAppointmentCreate} />
             </View>
 
             <CategorySelect
@@ -104,7 +108,10 @@ export function Home() {
             />
 
             <View style={styles.content}>
-                <ListHeader title={'Partidas agendadas'} subtitle={'Total 6'} />
+                <ListHeader
+                    title={'Partidas agendadas'}
+                    subtitle={`Total ${appointments.length}`}
+                />
                 <FlatList
                     data={appointments}
                     keyExtractor={(item) => item.id}

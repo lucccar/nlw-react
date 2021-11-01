@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { styles } from './styles'
 import { theme } from '../../global/styles/theme'
 
-export function ButtonAdd({}: RectButtonProps) {
+export function ButtonAdd({ ...rest }: RectButtonProps) {
     return (
-        <RectButton style={styles.container}>
+        <RectButton style={styles.container} {...rest}>
             <MaterialCommunityIcons
                 name="plus"
                 color={theme.colors.heading}
