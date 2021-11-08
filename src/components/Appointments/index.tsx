@@ -3,16 +3,12 @@ import { styles } from './styles'
 import { Text, View } from 'react-native'
 import { RectButtonProps, RectButton } from 'react-native-gesture-handler'
 import { GuidIcon } from '../GuildIcon'
+import { GuildProps } from '../Guild'
 import { categories } from '../../utils/categories'
 import PlayerSvg from '../../assets/player.svg'
 import CalendarSvg from '../../assets/calendar.svg'
 
 import { theme } from '../../global/styles/theme'
-
-export type GuildProps = {
-    name: string
-    owner: boolean
-}
 
 export type AppointmentProps = {
     id: string

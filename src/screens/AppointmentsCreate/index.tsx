@@ -17,7 +17,11 @@ import { CategorySelect } from '../../components/CategorySelect'
 import { SmallInput } from '../../components/SmallInput'
 import { TextArea } from '../../components/TextArea'
 import { Button } from '../../components/Button'
+import { ModalView } from '../../components/ModalView'
+import { Guilds } from '../Guilds'
+
 import { theme } from '../../global/styles/theme'
+import { GuildProps } from '../../components/Guild'
 
 export function AppointmentCreate() {
     const members = [
@@ -61,11 +65,25 @@ export function AppointmentCreate() {
 
     const [category, setCategory] = useState('')
 
+    const [openGuildsModal, setOpenGuildsModal] = useState(false)
+    function handleOpenGuilds() {
+        setOpenGuildsModal(true)
+    }
+    function handleCloseGuilds() {
+        setOpenGuildsModal(false)
+    }
+
+    const [guild, setGuild] = useState<GuildProps>({} as GuildProps)
+    function handleGuildSelect(guildSelected: GuildProps) {
+        setGuild(guildSelected)
+        setOpenGuildsModal(false)
+    }
+
     return (
         <KeyboardAvoidingView
             style={styles.container}
-            behavior={'padding'}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 1 : 70}
+            behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? -70 : 70}
             enabled
         >
             <ScrollView>
@@ -86,15 +104,18 @@ export function AppointmentCreate() {
                     />
 
                     <View style={styles.form}>
-                        <RectButton>
+                        <RectButton onPress={handleOpenGuilds}>
                             <View style={styles.select}>
-                                {
-                                    // <View style={styles.image} />
+                                {guild.icon ? (
                                     <GuidIcon />
-                                }
+                                ) : (
+                                    <View style={styles.image} />
+                                )}
                                 <View style={styles.selectBody}>
                                     <Text style={styles.label}>
-                                        Selecione um servidor
+                                        {guild.name
+                                            ? guild.name
+                                            : 'Selecione um servidor'}
                                     </Text>
                                 </View>
 
@@ -108,7 +129,14 @@ export function AppointmentCreate() {
                         <View style={styles.field}>
                             <View>
                                 <View>
-                                    <Text style={styles.label}>Dia e Mês</Text>
+                                    <Text
+                                        style={[
+                                            styles.label,
+                                            { marginBottom: 12 },
+                                        ]}
+                                    >
+                                        Dia e Mês
+                                    </Text>
 
                                     <View style={styles.column}>
                                         <SmallInput maxLength={2} />
@@ -120,7 +148,12 @@ export function AppointmentCreate() {
 
                             <View>
                                 <View>
-                                    <Text style={styles.label}>
+                                    <Text
+                                        style={[
+                                            styles.label,
+                                            { marginBottom: 12 },
+                                        ]}
+                                    >
                                         Hora e minuto
                                     </Text>
 
@@ -151,6 +184,9 @@ export function AppointmentCreate() {
                     </View>
                 </BackGround>
             </ScrollView>
+            <ModalView visible={openGuildsModal} closeModal={handleCloseGuilds}>
+                <Guilds handleGuildSelected={handleGuildSelect} />
+            </ModalView>
         </KeyboardAvoidingView>
     )
 }

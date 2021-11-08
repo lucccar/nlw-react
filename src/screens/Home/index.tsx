@@ -112,20 +112,21 @@ export function Home() {
                     title={'Partidas agendadas'}
                     subtitle={`Total ${appointments.length}`}
                 />
-                <FlatList
-                    data={appointments}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <Appointment
-                            data={item}
-                            onPress={handleAppointmentDetails}
-                        />
-                    )}
-                    ItemSeparatorComponent={ListDivider}
-                    showsVerticalScrollIndicator={false}
-                    style={styles.matches}
-                />
             </View>
+            <FlatList
+                data={appointments}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <Appointment
+                        data={item}
+                        onPress={handleAppointmentDetails}
+                    />
+                )}
+                ItemSeparatorComponent={ListDivider}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 69 }}
+                style={styles.matches}
+            />
         </BackGround>
     )
 }
