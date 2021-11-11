@@ -1,10 +1,30 @@
 import React from 'react'
 import { styles } from './styles'
-import { Image } from 'react-native'
+import DiscordSVG from '../../assets/discord.svg'
+import { Image, View } from 'react-native'
 
-export function GuidIcon() {
-    const uri = 'http://getdrawings.com/free-icon/green-discord-icon-60.png'
+const { CDN_IMAGE } = process.env
+
+type Props = {
+    guildID: string
+    iconID: string | null
+}
+
+export function GuidIcon({ guildID, iconID }: Props) {
+    const uri = `${CDN_IMAGE}/icons/${guildID}/${iconID}.png`
+
     return (
-        <Image source={{ uri }} style={styles.image} resizeMode="cover"></Image>
+        <View style={styles.container}>
+            {iconID ? (
+                <Image
+                    source={{ uri }}
+                    style={styles.image}
+                    resizeMode="cover"
+                    onError={() => <DiscordSVG width={40} height={40} />}
+                />
+            ) : (
+                <DiscordSVG width={40} height={40} />
+            )}
+        </View>
     )
 }
